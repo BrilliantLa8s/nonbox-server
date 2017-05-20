@@ -8,9 +8,8 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/', require('./controllers'));
-
-require('./lib/bluetooth');
+// Set routes
+app.use('/', require('./controllers/connect'));
 
 // Serve API
 app.set('port', process.env.PORT || 3000);

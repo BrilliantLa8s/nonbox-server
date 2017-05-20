@@ -1,6 +1,6 @@
 'use strict';
 const WiFiControl = require('wifi-control');
-const wifi    = require('./lib/wifi');
+const wifi    = require('../lib/wifi');
 const express = require('express');
 const router  = express.Router();
 
