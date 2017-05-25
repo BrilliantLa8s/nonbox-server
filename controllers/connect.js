@@ -1,12 +1,7 @@
 'use strict';
-const WiFiControl = require('wifi-control');
-const wifi    = require('../lib/wifi');
 const express = require('express');
+const wifi    = require('nonbox-wifi');
 const router  = express.Router();
-
-router.get('/', function(req, res) {
-  res.send('nonbox server')
-})
 
 // scan for wireless networks
 router.get('/scan', function(req, res) {
@@ -29,9 +24,19 @@ router.post('/connect', function(req, res) {
 router.get('/status', function(req, res) {
   wifi.status().then(function(resp){
     res.status(200).send(resp)
-  }).catch(function(err){console.log(err)});
+  }).catch(function(err){
+    res.status(500).send(err)
+  });
 });
-// reset network interface
+// disconnect iface
+router.delete('/disconnect', function(req, res) {
+  wifi.disconnect().then(function(resp){
+    res.status(200).send(resp)
+  }).catch(function(err){
+    res.status(500).send(err)
+  });
+});
+// reset iface
 router.delete('/reset', function(req, res) {
   wifi.reset().then(function(resp){
     res.status(200).send(resp)
